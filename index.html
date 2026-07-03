@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Юле Джан — анкета знакомства 💫</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: gradientBG 8s ease infinite;
+            background-size: 200% 200%;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px 25px;
+            max-width: 650px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heart-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            animation: heartbeat 1.5s ease infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+        
+        h1 {
+            text-align: center;
+            color: #4a1a7a;
+            margin-bottom: 5px;
+            font-size: 1.8em;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 20px;
+            font-style: italic;
+            font-size: 0.95em;
+        }
+        
+        .progress-container {
+            margin-bottom: 25px;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 0.85em;
+            color: #999;
+        }
+        
+        .question-card {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .question-card.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .question-badge {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+        
+        .badge-cute { background: #ffe0f0; color: #c0392b; }
+        .badge-spicy { background: #fff3cd; color: #e67e22; }
+        .badge-deep { background: #e8daef; color: #6c3483; }
+        .badge-fun { background: #d5f5e3; color: #1e8449; }
+        .badge-hot { background: #fadbd8; color: #c0392b; }
+        
+        .question-text {
+            font-size: 1.2em;
+            color: #333;
+            margin-bottom: 18px;
+            line-height: 1.4;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 14px 18px;
+            border: 2px solid #e0d5f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            font-size: 0.95em;
+            color: #555;
+            position: relative;
+        }
+        
+        .option:hover {
+            border-color: #764ba2;
+            background: #f8f5ff;
+            transform: translateX(5px);
+        }
+        
+        .option.selected {
+            border-color: #764ba2;
+            background: #764ba2;
+            color: white;
+            font-weight: bold;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
+        }
+        
+        .custom-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px dashed #d0c4e8;
+            border-radius: 12px;
+            font-size: 1em;
+            font-family: 'Georgia', serif;
+            margin-top: 10px;
+            display: none;
+            transition: all 0.3s ease;
+            background: #faf8ff;
+        }
+        
+        .custom-input.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .custom-input:focus {
+            outline: none;
+            border-color: #764ba2;
+            border-style: solid;
+            background: white;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            gap: 12px;
+        }
+        
+        button {
+            padding: 12px 28px;
+            border: none;
+            border-radius: 50px;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+        }
+        
+        .btn-back {
+            background: #f0e8f8;
+            color: #764ba2;
+        }
+        
+        .btn-back:hover {
+            background: #e0d0f0;
+        }
+        
+        .btn-next, .btn-submit {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(118, 75, 162, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+            padding: 20px 0;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .emoji-huge {
+            font-size: 4em;
+            animation: bounce 2s ease infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        .sparkles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        
+        .sparkle {
+            position: absolute;
+            font-size: 2em;
+            animation: sparkle-fall linear forwards;
+            opacity: 0;
+        }
+        
+        @keyframes sparkle-fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 0.95em;
+            z-index: 2000;
+            transition: transform 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+            max-width: 90%;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.error {
+            background: #e74c3c;
+        }
+        
+        .toast.success {
+            background: #27ae60;
+        }
+
+        .shy-mode-indicator {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            margin-left: 5px;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sparkles" id="sparkles"></div>
+    <div class="toast" id="toast"></div>
+    
+    <div class="container" id="app">
+        <div id="questions-container">
+            <div class="heart-title">💜</div>
+            <h1>Юле Джан</h1>
+            <p class="subtitle">Анкета-воспоминание • 20 вопросов о нас ✨</p>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="progress-text" id="progress-text">Вопрос 1 из 20</div>
+            </div>
+
+            <!-- Вопросы генерируются через JS -->
+            <div id="questions-area"></div>
+        </div>
+
+        <!-- Успех -->
+        <div class="success-message" id="success">
+            <div class="emoji-huge">💜✨💜</div>
+            <h2>Спасибо, Юле Джан!</h2>
+            <p style="font-size: 1.3em; color: #764ba2; margin: 15px 0;">Твои ответы уже у Ромы...</p>
+            <p style="color: #888;">Готовься к разговору по душам! 🤫</p>
+            <div style="font-size: 2em; margin-top: 15px;">💕🤗💕</div>
+        </div>
+    </div>
+
+    <script>
+        // ===== НАСТРОЙКИ TELEGRAM =====
+        const TELEGRAM_BOT_TOKEN = '8871368356:AAFNFCg2WVwKbJxGyAtMRkkog0bspy4fbeA';
+        const TELEGRAM_CHAT_ID = '1458632670';
+        const YOUR_TELEGRAM = '@romqa68';
+        // ==============================
+        
+        // 20 ВОПРОСОВ — от нежных до горячих
+        const questionsData = [
+            {
+                id: 1,
+                badge: 'badge-cute',
+                badgeText: '💕 Нежное',
+                question: 'Как прошла наша ПЕРВАЯ встреча? Опиши честно!',
+                options: [
+                    'Волшебно! Сразу почувствовала, что это судьба ✨',
+                    'Было неловко, но безумно интересно 😅',
+                    'Ты показался странным, но это заинтриговало 🤨',
+                    'Свой вариант (расскажу честно!) 💬'
+                ]
+            },
+            {
+                id: 2,
+                badge: 'badge-cute',
+                badgeText: '💕 Нежное',
+                question: 'Что ты подумала обо мне в ПЕРВЫЕ 5 минут знакомства?',
+                options: [
+                    '"Ого, какой интересный человек!" 😍',
+                    '"Хм, надо бы узнать его получше" 🤔',
+                    '"Боже, куда я попала?!" 🙈',
+                    'Свой вариант (только правду!) 🗣️'
+                ]
+            },
+            {
+                id: 3,
+                badge: 'badge-deep',
+                badgeText: '🌙 Глубокое',
+                question: 'В какой момент ты поняла, что я тебе НРАВЛЮСЬ?',
+                options: [
+                    'Сразу, как только увидела 💘',
+                    'После первого разговора по душам 🕯️',
+                    'Когда поймала себя на мыслях о тебе перед сном 🌙',
+                    'Свой вариант (раскрой секрет!) 🤫'
+                ]
+            },
+            {
+                id: 4,
+                badge: 'badge-spicy',
+                badgeText: '🌶️ С перчинкой',
+                question: 'Что тебя БЕСИТ во мне больше всего? Говори как есть!',
+                options: [
+                    'Твои дурацкие шутки не вовремя 🙄',
+                    'Когда ты долго не отвечаешь на сообщения 📵',
+                    'Твоя привычка спорить по пустякам 😤',
+                    'Свой вариант (выговорись!) 😈'
+                ]
+            },
+            {
+                id: 5,
+                badge: 'badge-hot',
+                badgeText: '🔥 Горячее',
+                question: 'Что самое ПРИВЛЕКАТЕЛЬНОЕ во мне? (Внешность, характер — всё!)',
+                options: [
+                    'Твой взгляд, когда ты смотришь на меня 👀',
+                    'Чувство юмора, от которого таю 🫠',
+                    'Твоя уверенность и харизма 💪',
+                    'Свой вариант (опиши подробно!) 🔥'
+                ]
+            },
+            {
+                id: 6,
+                badge: 'badge-fun',
+                badgeText: '😂 Смешное',
+                question: 'Самая НЕЛОВКАЯ ситуация между нами?',
+                options: [
+                    'Наше первое молчание в диалоге 🤐',
+                    'Когда ты ляпнул что-то не то 💀',
+                    'Случайное прикосновение, от которого мы оба замерли ⚡',
+                    'Свой вариант (рассмеши меня!) 🎭'
+                ]
+            },
+            {
+                id: 7,
+                badge: 'badge-hot',
+                badgeText: '🔥 Горячее',
+                question: 'Опиши наше САМОЕ романтичное свидание (или момент)',
+                options: [
+                    'Вечер под звёздами, когда время остановилось ✨',
+                    'Наш первый долгий разговор до утра 🌅',
+                    'Момент, когда мы просто молчали и всё было понятно 💫',
+                    'Свой вариант (воскреси тот момент!) 🥲'
+                ]
+            },
+            {
+                id: 8,
+                badge: 'badge-spicy',
+                badgeText: '🌶️ Откровенное',
+                question: 'Ты когда-нибудь представляла наш ПОЦЕЛУЙ? Если да — опиши как',
+                options: [
+                    'Да, и это было нежно и трепетно 💋',
+                    'Да, представляла страстно и неожиданно 🔥',
+                    'Пока нет, но теперь задумаюсь 🤔',
+                    'Свой вариант (не стесняйся!) 🙈'
+                ]
+            },
+            {
+                id: 9,
+                badge: 'badge-deep',
+                badgeText: '🌙 Личное',
+                question: 'Что ты рассказывала обо мне подругам?',
+                options: [
+                    '"Он офигенный, я не знаю что делать!" 😍',
+                    '"Странный, но я от него без ума" 🤪',
+                    'Я скрывала тебя ото всех, это было моё сокровище 💎',
+                    'Свой вариант (колись!) 🗣️'
+                ]
+            },
+            {
+                id: 10,
+                badge: 'badge-hot',
+                badgeText: '🔥 Интимное',
+                question: 'Какая часть моего тела тебе нравится больше всего?',
+                options: [
+                    'Глаза — в них можно утонуть 👁️',
+                    'Руки — сильные и нежные одновременно 🤲',
+                    'Улыбка — от неё всё внутри переворачивается 😊',
+                    'Свой вариант (я готов краснеть!) 🫣'
+                ]
+            },
+            {
+                id: 11,
+                badge: 'badge-deep',
+                badgeText: '🌙 Важное',
+                question: 'Что для тебя значит НАШЕ общение сейчас?',
+                options: [
+                    'Ты стал родным человеком, без которого пусто 💜',
+                    'Самое ценное, что есть в моей жизни сейчас 🌟',
+                    'Это моя тихая гавань и источник радости 🏡',
+                    'Свой вариант (скажи от души!) 💌'
+                ]
+            },
+            {
+                id: 12,
+                badge: 'badge-spicy',
+                badgeText: '🌶️ Дерзкое',
+                question: 'Что бы ты сделала, если бы мы оказались в одной комнате ПРЯМО СЕЙЧАС?',
+                options: [
+                    'Обняла бы и не отпускала долго-долго 🤗',
+                    'Сначала растерялась бы, а потом... 💫',
+                    'Задала бы тебе все эти вопросы лично, глядя в глаза 👁️',
+                    'Свой вариант (фантазируй!) 🎬'
+                ]
+            },
+            {
+                id: 13,
+                badge: 'badge-cute',
+                badgeText: '💕 Тёплое',
+                question: 'Какая песня напоминает тебе обо мне?',
+                options: [
+                    'Что-то романтичное и нежное 🎵',
+                    'Энергичный трек, под который хочется танцевать с тобой 💃',
+                    'Грустная песня, потому что скучаю 🥺',
+                    'Свой вариант (напиши название!) 🎶'
+                ]
+            },
+            {
+                id: 14,
+                badge: 'badge-hot',
+                badgeText: '🔥 Откровенное',
+                question: 'Что бы ты надела на наше ИДЕАЛЬНОЕ свидание?',
+                options: [
+                    'Красивое платье, от которого у тебя челюсть отвиснет 👗',
+                    'Что-то уютное и домашнее — мы бы просто были вместе 🏠',
+                    'Дерзкий наряд, чтобы ты не мог отвести глаз 🫣',
+                    'Свой вариант (опиши образ!) 👠'
+                ]
+            },
+            {
+                id: 15,
+                badge: 'badge-fun',
+                badgeText: '😂 Прикол',
+                question: 'Какое моё слово или фраза тебя ДИКО бесят или смешат?',
+                options: [
+                    'Когда ты говоришь "брат джан" не к месту 😂',
+                    'Твои коронные фразочки, которые ты повторяешь 🦜',
+                    'Когда ты пытаешься шутить, а выходит кринжово 💀',
+                    'Свой вариант (я готов к рофлу!) 🤡'
+                ]
+            },
+            {
+                id: 16,
+                badge: 'badge-deep',
+                badgeText: '🌙 Сокровенное',
+                question: 'О чём ты НИКОГДА мне не расскажешь лично, но напишешь здесь?',
+                options: [
+                    'О своих страхах, связанных с нами 😔',
+                    'О мечте, которую стесняюсь озвучить 🌠',
+                    'О чувствах, которые глубже, чем кажется 🌊',
+                    'Свой вариант (это только между нами!) 🤐'
+                ]
+            },
+            {
+                id: 17,
+                badge: 'badge-spicy',
+                badgeText: '🌶️ Провокация',
+                question: 'Ты бы согласилась поехать со мной в путешествие на неделю? И куда?',
+                options: [
+                    'ДА! На море, только мы вдвоём 🏖️',
+                    'Да, в горы — уютный домик и камин 🏔️',
+                    'Да, в шумный город — приключения ждут! 🌃',
+                    'Свой вариант (выбирай локацию!) 🗺️'
+                ]
+            },
+            {
+                id: 18,
+                badge: 'badge-hot',
+                badgeText: '🔥 Искра',
+                question: 'Что должно произойти, чтобы ты потеряла голову от меня ОКОНЧАТЕЛЬНО?',
+                options: [
+                    'Твой неожиданный поступок — сюрприз или признание 🎁',
+                    'Просто будь собой — я уже на грани 🫠',
+                    'Один твой взгляд может решить всё 👁️‍🗨️',
+                    'Свой вариант (дай подсказку!) 🎯'
+                ]
+            },
+            {
+                id: 19,
+                badge: 'badge-deep',
+                badgeText: '🌙 Философское',
+                question: 'Если бы наша история была фильмом — каким бы он был?',
+                options: [
+                    'Романтическая комедия с неловкими моментами 🎬',
+                    'Драма о двух родственных душах 🎭',
+                    'Приключение, где каждая встреча — подарок 🎪',
+                    'Свой вариант (опиши жанр и название!) 🎞️'
+                ]
+            },
+            {
+                id: 20,
+                badge: 'badge-cute',
+                badgeText: '💜 ФИНАЛ',
+                question: 'Опиши НАС одним предложением. Самое важное, что идёт от сердца.',
+                options: [
+                    'Случайность, ставшая самым важным в моей жизни 🎯',
+                    'История, которую я хочу писать до последней страницы 📖',
+                    'Моё "тихо счастлив" посреди шумного мира 🌍',
+                    'Свой вариант (твоё финальное слово!) ✍️'
+                ]
+            }
+        ];
+
+        let currentQuestion = 1;
+        const totalQuestions = 20;
+        const selectedOptions = {};
+
+        function showToast(message, type = '') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast ' + type + ' show';
+            if (navigator.vibrate) navigator.vibrate(150);
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Генерируем вопросы
+        function generateQuestions() {
+            const area = document.getElementById('questions-area');
+            questionsData.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.dataset.question = q.id;
+                if (q.id === 1) card.classList.add('active');
+                
+                let optionsHTML = q.options.map((opt, i) => {
+                    const isCustom = i === q.options.length - 1;
+                    return `<div class="option" onclick="selectOption(this, 'question${q.id}', ${isCustom})">${opt}</div>`;
+                }).join('');
+                
+                card.innerHTML = `
+                    <span class="question-badge ${q.badge}">${q.badgeText}</span>
+                    <p class="question-text">${q.question}</p>
+                    <div class="options">${optionsHTML}</div>
+                    <input type="text" class="custom-input" id="custom-question${q.id}" placeholder="Напиши свой вариант...">
+                    <div class="buttons">
+                        ${q.id > 1 ? '<button class="btn-back" onclick="prevQuestion()">← Назад</button>' : '<div></div>'}
+                        ${q.id < totalQuestions 
+                            ? '<button class="btn-next" onclick="nextQuestion()">Дальше →</button>'
+                            : '<button class="btn-submit" onclick="submitAnswers()">Отправить Роме 💌</button>'
+                        }
+                    </div>
+                `;
+                area.appendChild(card);
+            });
+        }
+
+        function selectOption(element, questionId, isCustom = false) {
+            const questionCard = element.closest('.question-card');
+            
+            questionCard.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+            element.classList.add('selected');
+            
+            const customInput = questionCard.querySelector('.custom-input');
+            if (isCustom) {
+                customInput.classList.add('show');
+                customInput.focus();
+                selectedOptions[questionId] = 'custom';
+            } else {
+                customInput.classList.remove('show');
+                selectedOptions[questionId] = element.textContent.trim();
+            }
+        }
+
+        function getAnswer(questionNum) {
+            const questionId = `question${questionNum}`;
+            const customInput = document.getElementById(`custom-${questionId}`);
+            
+            if (selectedOptions[questionId] === 'custom') {
+                return customInput.value.trim() || '(свой вариант не заполнен)';
+            }
+            return selectedOptions[questionId] || '(ответ не выбран)';
+        }
+
+        function showQuestion(num) {
+            document.querySelectorAll('.question-card').forEach(card => card.classList.remove('active'));
+            const targetCard = document.querySelector(`[data-question="${num}"]`);
+            if (targetCard) {
+                targetCard.classList.add('active');
+                currentQuestion = num;
+                updateProgress();
+                document.getElementById('app').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function nextQuestion() {
+            if (!selectedOptions[`question${currentQuestion}`]) {
+                showToast('Джан, выбери вариант ответа! 💜', 'error');
+                return;
+            }
+            
+            if (selectedOptions[`question${currentQuestion}`] === 'custom') {
+                const customInput = document.getElementById(`custom-question${currentQuestion}`);
+                if (!customInput.value.trim()) {
+                    showToast('Напиши свой вариант! Не стесняйся 🤗', 'error');
+                    return;
+                }
+            }
+            
+            if (currentQuestion < totalQuestions) {
+                showQuestion(currentQuestion + 1);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+            document.getElementById('progress-text').textContent = `Вопрос ${currentQuestion} из ${totalQuestions}`;
+        }
+
+        async function submitAnswers() {
+            if (!selectedOptions[`question${currentQuestion}`]) {
+                showToast('Ответь на последний вопрос, джан! 🌟', 'error');
+                return;
+            }
+            
+            if (selectedOptions[`question${currentQuestion}`] === 'custom') {
+                const customInput = document.getElementById(`custom-question${currentQuestion}`);
+                if (!customInput.value.trim()) {
+                    showToast('Напиши финальное слово! ✍️', 'error');
+                    return;
+                }
+            }
+
+            const submitBtn = document.querySelector('.btn-submit');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Отправляю... 💫';
+            }
+
+            // Собираем ответы
+            const results = [];
+            questionsData.forEach(q => {
+                results.push(`${q.id}. ${q.question}\n➡️ ${getAnswer(q.id)}`);
+            });
+
+            const message = `💌 *НОВЫЕ ОТВЕТЫ ОТ ЮЛИ ДЖАН! (20 вопросов)*\n\n${results.join('\n\n')}\n\n🕐 ${new Date().toLocaleString('ru-RU')}\n💜 С любовью, твоя анкета`;
+
+            // Отправка в Telegram
+            let sent = false;
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                
+                const data = await response.json();
+                sent = data.ok;
+                if (!sent) console.error('Ошибка API:', data);
+            } catch (e) {
+                console.error('Ошибка отправки:', e);
+            }
+
+            // Показываем результат
+            document.getElementById('questions-area').style.display = 'none';
+            document.querySelector('.progress-container').style.display = 'none';
+            const successDiv = document.getElementById('success');
+            successDiv.classList.add('show');
+            
+            const statusText = successDiv.querySelector('p');
+            if (sent) {
+                statusText.textContent = 'Твои ответы уже летят к Роме в Telegram! 📲';
+                statusText.style.color = '#27ae60';
+                if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
+            } else {
+                statusText.textContent = 'Не удалось отправить автоматически, но вот резервная копия:';
+                statusText.style.color = '#e67e22';
+                const backupNote = document.createElement('div');
+                backupNote.style.cssText = 'margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 10px; text-align: left;';
+                backupNote.innerHTML = `
+                    <p style="font-weight:bold;margin-bottom:10px;">📋 Скопируй и отправь Роме вручную:</p>
+                    <textarea readonly style="width:100%;height:200px;border-radius:8px;border:1px solid #ddd;padding:10px;font-size:0.8em;">${message.replace(/\*/g, '')}</textarea>
+                    <p style="margin-top:10px;font-size:0.9em;">Отправь это @romqa68 👆</p>
+                `;
+                successDiv.appendChild(backupNote);
+            }
+            
+            createSparkles();
+        }
+
+        function createSparkles() {
+            const sparklesContainer = document.getElementById('sparkles');
+            const emojis = ['💜', '✨', '💕', '🌟', '💫', '💝', '🥰', '💖', '🔥', '🌶️', '🙈', '💋'];
+            
+            for (let i = 0; i < 40; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('span');
+                    sparkle.className = 'sparkle';
+                    sparkle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    sparkle.style.fontSize = (Math.random() * 2.5 + 1) + 'em';
+                    sparklesContainer.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 4000);
+                }, i * 80);
+            }
+        }
+
+        // Свайпы
+        let touchStartX = 0;
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+        
+        document.addEventListener('touchend', (e) => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > 100) {
+                if (diff > 0 && currentQuestion < totalQuestions) {
+                    nextQuestion();
+                } else if (diff < 0 && currentQuestion > 1) {
+                    prevQuestion();
+                }
+            }
+        });
+
+        // Инициализация
+        generateQuestions();
+        updateProgress();
+        console.log('💜 Анкета для Юли Джан готова! 20 вопросов.');
+        console.log('📲 Ответы придут на Telegram:', YOUR_TELEGRAM);
+    </script>
+</body>
+</html>
